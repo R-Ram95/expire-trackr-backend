@@ -1,4 +1,5 @@
 // This is your Prisma schema file,
+
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
@@ -10,18 +11,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-	  id    Int     @id @default(autoincrement())
-		  email String  @unique
-			  name  String?
-				  posts Post[]
+model Product {
+  id              Int         @id
+  name            String
+  manufacturer    String
+  daysTillExpired Int
+  Inventory       Inventory[]
 }
 
-model Post {
-	  id        Int     @id @default(autoincrement())
-		  title     String
-			  content   String?
-				  published Boolean @default(false)
-					  author    User    @relation(fields: [authorId], references: [id])
-						  authorId  Int
+model Inventory {
+  product        Product  @relation(fields: [productId], references: [id])
+  expirationDate DateTime  
+  dateReceived   DateTime @default(now())
+  productId      Int
+  quantity       Int
+
+  @@id([dateReceived, productId])
 }
