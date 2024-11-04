@@ -1,31 +1,15 @@
 import express from "express"
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import catalogueRoutes from "./routes/catalogues.route"
+import productRoutes from "./routes/products.route";
 
 const app = express();
 const port = 3000;
 
-
-app.post("/user", async (req, res) => {
-	const user = await prisma.user.create({
-		data: {
-			name: 'Alice',
-			email: 'alice@prisma.io',
-		},
-	})
-
-	console.log(user)
-}
-);
-
-app.get("/user", async (req, res) => {
-	const user = await prisma.user.findMany();
-
-	res.send(user);
-});
-
+app.use("/catalogue", catalogueRoutes)
+app.use("/products", productRoutes )
 
 app.listen(port, () => {
 	console.log(`Server running on port ${port}`);
 });
+
+export default app;
