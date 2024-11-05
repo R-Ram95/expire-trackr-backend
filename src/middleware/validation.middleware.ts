@@ -7,7 +7,7 @@ export const validateSchema = (schema: z.ZodObject<any, any>) => {
 
 		try {
 
-			schema.parse(req);
+			schema.parse(req.body);
 			next();
 
 		} catch (error) {
