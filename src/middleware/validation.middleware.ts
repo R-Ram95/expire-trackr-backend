@@ -2,16 +2,27 @@ import { z, ZodError, ZodIssue } from "zod";
 import { Request, Response, NextFunction } from "express";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 
-export const validateSchema = (schema: z.ZodObject<any, any>) => {
+interface ValidateSchemaOptions {
+	bodySchema?: z.ZodObject<any, any>;
+	querySchema?: z.ZodObject<any, any>;
+}
+
+export const validateSchema = ({
+	bodySchema,
+	querySchema,
+}: ValidateSchemaOptions) => {
 	return (req: Request, res: Response, next: NextFunction) => {
-
 		try {
+			if (bodySchema) {
+				bodySchema.parse(req.body);
+			}
 
-			schema.parse(req.body);
+			if (querySchema) {
+				querySchema.parse(req.query);
+			}
+
 			next();
-
 		} catch (error) {
-
 			if (error instanceof ZodError) {
 				const errorMessages = error.errors.map((issue: ZodIssue) => {
 					return {
