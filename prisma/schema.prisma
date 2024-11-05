@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
+model Catalogue {
   id              Int         @id
   name            String
   manufacturer    String
@@ -17,9 +16,9 @@ model Product {
 }
 
 model Inventory {
-  product        Product  @relation(fields: [productId], references: [id])
-  expirationDate DateTime  
-  dateReceived   DateTime @default(now())
+  product        Catalogue @relation(fields: [productId], references: [id])
+  expirationDate DateTime
+  dateReceived   DateTime  @default(now())
   productId      Int
   quantity       Int
 
