@@ -4,12 +4,12 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 
 interface ValidateSchemaOptions {
 	bodySchema?: z.ZodObject<any, any>;
-	querySchema?: z.ZodObject<any, any>;
+	paramSchema?: z.ZodObject<any, any>;
 }
 
 export const validateSchema = ({
 	bodySchema,
-	querySchema,
+	paramSchema,
 }: ValidateSchemaOptions) => {
 	return (req: Request, res: Response, next: NextFunction) => {
 		try {
@@ -17,8 +17,8 @@ export const validateSchema = ({
 				bodySchema.parse(req.body);
 			}
 
-			if (querySchema) {
-				querySchema.parse(req.query);
+			if (paramSchema) {
+				paramSchema.parse(req.params);
 			}
 
 			next();

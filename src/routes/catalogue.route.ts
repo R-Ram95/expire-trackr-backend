@@ -15,7 +15,7 @@ router.route("/").get(getCatalogue);
 router.route("/items/:productId").put(
 	validateSchema({
 		bodySchema: UpsertItemBodySchema,
-		querySchema: UpsertItemQuerySchema,
+		paramSchema: UpsertItemQuerySchema,
 	}),
 	upsertItemController
 );

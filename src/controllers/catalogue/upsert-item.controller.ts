@@ -3,12 +3,12 @@ import prismaClient from "../../prisma-client";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 
 
-export const upsertItemController = (req: Request, res: Response) => {
+export const upsertItemController = async(req: Request, res: Response) => {
 	const itemDetails = req.body;
-	const productId  = parseInt(req.query.productId as string);
+	const productId  = parseInt(req.params.productId as string);
 
 	try {
-		const item = prismaClient.catalogue.upsert({
+		const item = await prismaClient.catalogue.upsert({
 			create: {
 				id: productId,
 				...itemDetails

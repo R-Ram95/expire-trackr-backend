@@ -4,6 +4,7 @@ import inventoryRoutes from "./routes/inventory.route";
 
 const app = express();
 const port = 3000;
+app.use(express.json())
 
 app.use("/api/catalogue", catalogueRoutes)
 app.use("/api/inventory", inventoryRoutes )
