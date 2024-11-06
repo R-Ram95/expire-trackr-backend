@@ -5,7 +5,7 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 
 export const upsertItemController = async(req: Request, res: Response) => {
 	const itemDetails = req.body;
-	const productId  = parseInt(req.params.productId as string);
+	const productId  = req.params.productId as string;
 
 	try {
 		const item = await prismaClient.catalogue.upsert({

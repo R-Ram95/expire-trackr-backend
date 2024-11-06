@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Catalogue {
-  id              Int         @id
+  id              String         @id
   name            String
   manufacturer    String
   daysTillExpired Int
@@ -19,7 +19,7 @@ model Inventory {
   product        Catalogue @relation(fields: [productId], references: [id])
   expirationDate DateTime
   dateReceived   DateTime  @default(now())
-  productId      Int
+  productId      String
   quantity       Int
 
   @@id([dateReceived, productId])
