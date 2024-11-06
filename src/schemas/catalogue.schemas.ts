@@ -8,6 +8,9 @@ export const UpsertItemBodySchema = z.object({
 		.nonnegative({ message: "daystTillExpired must be non-negative" }),
 });
 
-export const UpsertItemQuerySchema = z.object({
-	productId:z.string().min(12, "productId must be 12 digits long").max(12, "productId must be 12 digits long") ,
+export const ProductIdParamSchema = z.object({
+	productId: z
+		.string()
+		.min(12, "productId must be 12 digits long")
+		.max(12, "productId must be 12 digits long"),
 });
